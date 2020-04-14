@@ -13,11 +13,31 @@ def diag1(lst):
         Q = lst[q]
 
         for j in range(q+1,8):
-            print("column:",j , "row:",lst[j],"Queen",Q)
+            #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
             if lst[j] ==(Q+j):
+                return False
+    
+    return True
+
+
+
+def diag2(lst):
+    for q in range(8):
+        Q = lst[q]
+
+        for j in range((q-1),-1,-1):
+            #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
+            if lst[j] == Q+j:
                 return False
     return True
 
-        
+sol=[]
+for lst in all:
+  
+    if diag2(lst) and diag1(lst):
+        sol.append(lst)
 
-        
+
+print(sol)
+
+       

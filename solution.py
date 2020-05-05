@@ -4,48 +4,51 @@ from itertools import permutations
 from pprint import pprint as pp
 import time
 # all possible solution
-
-a = time.time()
-all= permutations(range(8))
+class EightQ:
+    def __init__(self):
+        self.all= permutations(range(8))
+        self.sol = []
 
 # function to check if the given list is corrrect in \ diagon
 
-def diag1(lst):
-    # iterate through all the queens in the list
-    for q in range(8):
-        Q = lst[q]
-        count =0
-        for j in range(q+1,8):
-            count+=1
-            #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
-            if lst[j] ==(Q+count):
-                return False
+    def __diag1(self,lst):
+
+        # iterate through all the queens in the list
+        for q in range(8):
+            Q = lst[q]
+            count =0
+
+            for j in range(q+1,8):
+                count+=1
+                #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
+                if lst[j] ==(Q+count):
+                    return False
+        return True
+
+    def __diag2(self,lst):
+
+        for q in range(8):
+            Q = lst[q]
+            count = 0
+
+            for j in range((q-1),-1,-1):
+                count+=1
+                #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
+                if lst[j] == Q+count:
+                    return False
+        return True
     
-    return True
+    def result(self):
+        for lst in self.all:
+            if self.__diag2(lst) and self.__diag1(lst):
+                self.sol.append(lst)
+        return self.sol
 
 
-
-def diag2(lst):
-    for q in range(8):
-        Q = lst[q]
-        count = 0
-        for j in range((q-1),-1,-1):
-            count+=1
-            #print("column:",j , "row:",lst[j],"Queen",Q)  # for checking the solution
-            if lst[j] == Q+count:
-                return False
-    return True
-
-sol=[]
-for lst in all:
-  
-    if diag2(lst) and diag1(lst):
-        sol.append(lst)
+def main():
+    ans = EightQ()
+    pp(ans.result())
 
 
-pp(sol)
-print(len(sol))
-print("Time Taken:",time.time()-a)
-
-
-       
+if __name__ == '__main__':
+    main()
